@@ -1,0 +1,82 @@
+diff --git a/dist/index.cjs b/dist/index.cjs
+--- a/dist/index.cjs
++++ b/dist/index.cjs
+@@ -497,6 +497,7 @@
+   Model2["PaddleOCRVL"] = "PaddleOCR-VL";
+   Model2["PaddleOCRVL15"] = "PaddleOCR-VL-1.5";
+   Model2["PaddleOCRVL16"] = "PaddleOCR-VL-1.6";
++  Model2["PaddleOCRVL18"] = "PaddleOCR-VL-1.8";
+   return Model2;
+ })(Model || {});
+ var OCR_MODELS = /* @__PURE__ */ new Set(["PP-OCRv5" /* PPOCRv5 */, "PP-OCRv6" /* PPOCRv6 */]);
+@@ -504,12 +505,14 @@
+   "PP-StructureV3" /* PPStructureV3 */,
+   "PaddleOCR-VL" /* PaddleOCRVL */,
+   "PaddleOCR-VL-1.5" /* PaddleOCRVL15 */,
+-  "PaddleOCR-VL-1.6" /* PaddleOCRVL16 */
++  "PaddleOCR-VL-1.6" /* PaddleOCRVL16 */,
++  "PaddleOCR-VL-1.8" /* PaddleOCRVL18 */
+ ]);
+ var VL_MODELS = /* @__PURE__ */ new Set([
+   "PaddleOCR-VL" /* PaddleOCRVL */,
+   "PaddleOCR-VL-1.5" /* PaddleOCRVL15 */,
+-  "PaddleOCR-VL-1.6" /* PaddleOCRVL16 */
++  "PaddleOCR-VL-1.6" /* PaddleOCRVL16 */,
++  "PaddleOCR-VL-1.8" /* PaddleOCRVL18 */
+ ]);
+ function isOCRModel(model) {
+   return OCR_MODELS.has(model);
+diff --git a/dist/index.js b/dist/index.js
+--- a/dist/index.js
++++ b/dist/index.js
+@@ -451,6 +451,7 @@
+   Model2["PaddleOCRVL"] = "PaddleOCR-VL";
+   Model2["PaddleOCRVL15"] = "PaddleOCR-VL-1.5";
+   Model2["PaddleOCRVL16"] = "PaddleOCR-VL-1.6";
++  Model2["PaddleOCRVL18"] = "PaddleOCR-VL-1.8";
+   return Model2;
+ })(Model || {});
+ var OCR_MODELS = /* @__PURE__ */ new Set(["PP-OCRv5" /* PPOCRv5 */, "PP-OCRv6" /* PPOCRv6 */]);
+@@ -458,12 +459,14 @@
+   "PP-StructureV3" /* PPStructureV3 */,
+   "PaddleOCR-VL" /* PaddleOCRVL */,
+   "PaddleOCR-VL-1.5" /* PaddleOCRVL15 */,
+-  "PaddleOCR-VL-1.6" /* PaddleOCRVL16 */
++  "PaddleOCR-VL-1.6" /* PaddleOCRVL16 */,
++  "PaddleOCR-VL-1.8" /* PaddleOCRVL18 */
+ ]);
+ var VL_MODELS = /* @__PURE__ */ new Set([
+   "PaddleOCR-VL" /* PaddleOCRVL */,
+   "PaddleOCR-VL-1.5" /* PaddleOCRVL15 */,
+-  "PaddleOCR-VL-1.6" /* PaddleOCRVL16 */
++  "PaddleOCR-VL-1.6" /* PaddleOCRVL16 */,
++  "PaddleOCR-VL-1.8" /* PaddleOCRVL18 */
+ ]);
+ function isOCRModel(model) {
+   return OCR_MODELS.has(model);
+diff --git a/dist/index.d.cts b/dist/index.d.cts
+--- a/dist/index.d.cts
++++ b/dist/index.d.cts
+@@ -4,7 +4,8 @@
+     PPStructureV3 = "PP-StructureV3",
+     PaddleOCRVL = "PaddleOCR-VL",
+     PaddleOCRVL15 = "PaddleOCR-VL-1.5",
+-    PaddleOCRVL16 = "PaddleOCR-VL-1.6"
++    PaddleOCRVL16 = "PaddleOCR-VL-1.6",
++    PaddleOCRVL18 = "PaddleOCR-VL-1.8"
+ }
+ declare function isOCRModel(model: string): model is Model.PPOCRv5 | Model.PPOCRv6;
+ declare function isDocumentParsingModel(model: string): boolean;
+diff --git a/dist/index.d.ts b/dist/index.d.ts
+--- a/dist/index.d.ts
++++ b/dist/index.d.ts
+@@ -4,7 +4,8 @@
+     PPStructureV3 = "PP-StructureV3",
+     PaddleOCRVL = "PaddleOCR-VL",
+     PaddleOCRVL15 = "PaddleOCR-VL-1.5",
+-    PaddleOCRVL16 = "PaddleOCR-VL-1.6"
++    PaddleOCRVL16 = "PaddleOCR-VL-1.6",
++    PaddleOCRVL18 = "PaddleOCR-VL-1.8"
+ }
+ declare function isOCRModel(model: string): model is Model.PPOCRv5 | Model.PPOCRv6;
+ declare function isDocumentParsingModel(model: string): boolean;

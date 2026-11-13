@@ -20,7 +20,6 @@ import { createPaddleClient } from '../client'
 
 const API_HOST = 'https://paddleocr.aistudio-app.com'
 const API_KEY = 'secret-key'
-const MODEL = 'PaddleOCR-VL-1.6'
 
 describe('paddleocr client upload', () => {
   let tempFile: string
@@ -44,28 +43,31 @@ describe('paddleocr client upload', () => {
     await fs.rm(tempFile, { force: true })
   })
 
-  it('submits documents as multipart/form-data with a file part and the required headers', async () => {
-    const client = await createPaddleClient(API_HOST, API_KEY)
+  it.each(['PaddleOCR-VL-1.6', 'PaddleOCR-VL-1.8'])(
+    'submits a document for %s without changing the selected model',
+    async (model) => {
+      const client = await createPaddleClient(API_HOST, API_KEY)
 
-    const result = await client.submitDocumentParsing({ filePath: tempFile, model: MODEL })
+      const result = await client.submitDocumentParsing({ filePath: tempFile, model })
 
-    expect(result.jobId).toBe('job-1')
+      expect(result.jobId).toBe('job-1')
 
-    expect(netFetchMock).toHaveBeenCalledWith(
-      expect.stringContaining('/api/v2/ocr/jobs'),
-      expect.objectContaining({ method: 'POST' })
-    )
+      expect(netFetchMock).toHaveBeenCalledWith(
+        expect.stringContaining('/api/v2/ocr/jobs'),
+        expect.objectContaining({ method: 'POST' })
+      )
 
-    const [, init] = netFetchMock.mock.calls[0] as [string, { body?: unknown; headers?: Record<string, string> }]
-    expect(init.body).toBeInstanceOf(FormData)
+      const [, init] = netFetchMock.mock.calls[0] as [string, { body?: unknown; headers?: Record<string, string> }]
+      expect(init.body).toBeInstanceOf(FormData)
 
-    const form = init.body as FormData
-    expect(form.get('file')).toBeTruthy()
-    expect(form.get('model')).toBe(MODEL)
+      const form = init.body as FormData
+      expect(form.get('file')).toBeTruthy()
+      expect(form.get('model')).toBe(model)
 
-    expect(init.headers?.['Authorization']).toBe(`Bearer ${API_KEY}`)
-    expect(init.headers?.['Client-Platform']).toBe('cherrystudio')
-  })
+      expect(init.headers?.['Authorization']).toBe(`Bearer ${API_KEY}`)
+      expect(init.headers?.['Client-Platform']).toBe('cherrystudio')
+    }
+  )
 
   it('submits OCR images as multipart/form-data with a file part', async () => {
     const client = await createPaddleClient(API_HOST, API_KEY)
